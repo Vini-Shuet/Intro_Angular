@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aula 2 - Introdução Angular</title>
+
+    <style>
+        /* # = representa um ID, da para reutilizar em varios lugares */
+        #meuElemento {
+            width: 200px;
+            height: 100;
+            background-color: lightblue;
+        }
+
+        /* . = classes */
+        .fontFiap {
+            font-size: 15px;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div id="conteudo"></div>
+    <input type="button" />
+
+    <!-- Evento que, ao alterar, ele manda um evento -->
+    <select onchange="chamarMunicipio()">
+        <option>Selecione:</option>
+        <option value="SP">SP</option>
+        <option value="MG">MG</option>
+    </select>
+
+    <h2>Exemplo onmouseover</h2>
+    <!-- Passar a propria imagem como argumento -->
+    <img onmouseover="trocarImagem(this)" onmouseout="voltarImagem(this)"
+    src="https://www.zapimoveis.com.br/blog/wp-content/uploads/2023/12/cidade-de-sao-paulo.jpg" alt="Imagem SP">
+
+</body>
+
+<script>
+    // JavaScript
+    function chamarMunicipio() {
+        //Podemos chamar a api que devolva os municipios do estado
+        alert('Trocou estado!')
+    }
+
+    function trocarImagem(img){
+        img.src = 'https://dint.fgv.br/sites/default/files/styles/imagem_direita/public/img-direita/2021-12/guia-sp.jpg?h=c18816d7&itok=MVJBNc0T'
+    }
+
+    function voltarImagem(img){
+        img.src= 'https://www.zapimoveis.com.br/blog/wp-content/uploads/2023/12/cidade-de-sao-paulo.jpg'
+    }
+</script>
+
+</html>
