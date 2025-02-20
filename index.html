@@ -34,15 +34,52 @@
         <option value="MG">MG</option>
     </select>
 
+    <h2>Botao que chama a API</h2>
+    <input type="button" value="Chamar API" onclick="consumirAPI()">
+
     <h2>Exemplo onmouseover</h2>
     <!-- Passar a propria imagem como argumento -->
-    <img onmouseover="trocarImagem(this)" onmouseout="voltarImagem(this)"
-    src="https://www.zapimoveis.com.br/blog/wp-content/uploads/2023/12/cidade-de-sao-paulo.jpg" alt="Imagem SP">
+    <!-- <img onmouseover="trocarImagem(this)" onmouseout="voltarImagem(this)"
+    src="https://www.zapimoveis.com.br/blog/wp-content/uploads/2023/12/cidade-de-sao-paulo.jpg" alt="Imagem SP"> -->
+
+
+    <form action="">
+        <p>Nome: <input type="text" id="nome"></p>
+        <p>Idade: <input type="text" id="idade"></p>
+        <p>Salário: <input type="text" id="salario"></p>
+        <p>Ativo: <input type="checkbox" id="ativo"></p>
+        <p>Endereço: <input type="text" id="endereco"></p>
+        <p>Departamento: <input type="text" id="departamento"></p>
+    </form>
+
+    <h2>Consumir Via cep</h2>
+    <p>Cep: <input type="text" id="cep" onblur="consultarCep(this.value)"></p>
+    <p>Bairro: <input type="text" id="bairro"></p>
+    <p>Rua: <input type="text" id="rua"></p>
+    <p>Região: <input type="text" id="regiao"></p>
 
 </body>
 
 <script>
     // JavaScript
+
+    function consultarCep(cep){
+        let url = `https://viacep.com.br/ws/${cep}/json/`
+        fetch(url)
+        .then(response => response.json())
+        .then(data => mostrarEndereco(data))
+        .catch(error => console.log(error))
+    }
+
+    function mostrarEndereco(dataCep){
+        console.log(dataCep)
+        document.getElementById("bairro").value = dataCep.bairro
+        document.getElementById("rua").value = dataCep.logradouro
+        document.getElementById("regiao").value = dataCep.regiao
+    }
+
+
+
     function chamarMunicipio() {
         //Podemos chamar a api que devolva os municipios do estado
         alert('Trocou estado!')
@@ -54,6 +91,35 @@
 
     function voltarImagem(img){
         img.src= 'https://www.zapimoveis.com.br/blog/wp-content/uploads/2023/12/cidade-de-sao-paulo.jpg'
+    }
+
+    function consumirAPI(){
+        fetch("http://demo2729367.mockable.io/funcionario")
+        .then(response => response.json())
+        .then(data => tratarDados(data)) //pegando parametro e jogando no metodo tratar
+        .catch(error => console.log(error))
+    }
+
+    function limparFormulario(){
+        document.getElementById("nome").value = ""
+        document.getElementById("idade").value = ""
+        document.getElementById("salario").value = ""
+        document.getElementById("endereco").value = ""
+        document.getElementById("departamento").value = ""
+        document.getElementById("ativo").checked = false
+    }
+
+    function tratarDados(data){
+        //debugger;
+        limparFormulario()
+        console.log(data)
+        document.getElementById("nome").value = data.nome
+        document.getElementById("idade").value = data.idade
+        document.getElementById("salario").value = data.salario
+        document.getElementById("endereco").value = data.endereco
+        document.getElementById("departamento").value = data.departamento
+        if(data.ativo)
+            document.getElementById("ativo").checked = true
     }
 </script>
 
